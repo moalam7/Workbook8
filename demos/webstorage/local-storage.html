@@ -19,36 +19,28 @@
       const displayButton = document.querySelector("#displayButton");
       const clearButton = document.querySelector("#clearButton");
 
-      let storeValue = () => {
-        const value = userInput.value;
+      storeButton.onclick = () => {
+        const value = userInput.value.trim();
         if (value) {
-          const key = `userItem${localStorage.length + 1}`;
-          localStorage.setItem(key, value);
-          alert(`Stored: ${key} - ${value}`);
+          localStorage.setItem(`userItem${localStorage.length + 1}`, value);
+          alert(`Stored: ${value}`);
+          userInput.value = "";
         } else {
           alert("Please enter a value to store.");
         }
-        userInput.value = "";
       };
 
-      let displayValues = () => {
-        let items = "";
-        for (let i = 0; i < localStorage.length; i++) {
-          const key = localStorage.key(i);
-          const value = localStorage.getItem(key);
-          items += `${key}: ${value}\n`;
-        }
+      displayButton.onclick = () => {
+        const items = Object.keys(localStorage)
+          .map((key) => `${key}: ${localStorage.getItem(key)}`)
+          .join("\n");
         alert(items || "No items in localStorage.");
       };
 
-      let clearStorage = () => {
+      clearButton.onclick = () => {
         localStorage.clear();
         alert("All localStorage items have been cleared.");
       };
-
-      storeButton.onclick = storeValue;
-      displayButton.onclick = displayValues;
-      clearButton.onclick = clearStorage;
     </script>
   </body>
 </html>
