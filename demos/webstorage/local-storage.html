@@ -6,18 +6,49 @@
     <title>Web Storage</title>
   </head>
   <body>
+    <input type="text" id="userInput" placeholder="Enter value to store" />
+    <button id="storeButton">Store Value</button>
     <button id="displayButton">Display Web Storage</button>
+    <button id="clearButton">Clear Web Storage</button>
 
     <script>
       "use strict";
 
+      const userInput = document.querySelector("#userInput");
+      const storeButton = document.querySelector("#storeButton");
       const displayButton = document.querySelector("#displayButton");
+      const clearButton = document.querySelector("#clearButton");
 
-      localStorage.setItem("myItem", "stuff to store");
+      let storeValue = () => {
+        const value = userInput.value;
+        if (value) {
+          const key = `userItem${localStorage.length + 1}`;
+          localStorage.setItem(key, value);
+          alert(`Stored: ${key} - ${value}`);
+        } else {
+          alert("Please enter a value to store.");
+        }
+        userInput.value = "";
+      };
 
-      let display = () => alert(localStorage.getItem("myItem"));
+      let displayValues = () => {
+        let items = "";
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          const value = localStorage.getItem(key);
+          items += `${key}: ${value}\n`;
+        }
+        alert(items || "No items in localStorage.");
+      };
 
-      displayButton.onclick = display;
+      let clearStorage = () => {
+        localStorage.clear();
+        alert("All localStorage items have been cleared.");
+      };
+
+      storeButton.onclick = storeValue;
+      displayButton.onclick = displayValues;
+      clearButton.onclick = clearStorage;
     </script>
   </body>
 </html>
