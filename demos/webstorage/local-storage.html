@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Storage</title>
+  </head>
+  <body>
+    <button id="displayButton">Display Web Storage</button>
+
+    <script>
+      "use strict";
+
+      const displayButton = document.querySelector("#displayButton");
+
+      localStorage.setItem("myItem", "stuff to store");
+
+      let display = () => alert(localStorage.getItem("myItem"));
+
+      displayButton.onclick = display;
+    </script>
+  </body>
+</html>
